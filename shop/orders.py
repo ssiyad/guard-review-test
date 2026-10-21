@@ -12,7 +12,7 @@ def place_order(customer_id, items, discount_code=None):
         percent = frappe.db.get_value("Discount Code", discount_code, "percent")
         if percent is None:
             frappe.throw(f"Discount code {discount_code} is not valid")
-        total = total - total * percent / 100
+        total = round(total - total * percent / 100, 2)
     order = frappe.get_doc(
         {
             "doctype": "Sales Order",
